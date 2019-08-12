@@ -3,7 +3,6 @@
     :page-stack="pageStack"
     :pop-page="storePop"
     :options="options"
-    @postpush="showPopTip"
     :class="{ 'border-radius': borderRadius }"
   ></v-ons-navigator>
 </template>

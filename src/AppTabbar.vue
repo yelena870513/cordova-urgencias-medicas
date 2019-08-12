@@ -26,7 +26,7 @@ import Camera from './pages/Camera.vue';
 import Home from './pages/Home.vue';
 import Forms from './pages/Forms.vue';
 import Animations from './pages/Animations.vue';
-
+import Inicio from './pages/Inicio.vue';
 // Just a linear interpolation formula
 const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
 // RGB colors
@@ -44,18 +44,18 @@ export default {
       topPosition: 0,
       tabs: [
         {
+          label: 'Home',
+          icon: this.md ? null : 'ion-home',
+          page: Home,
+          theme: red
+        },
+        {
           label: this.md ? null : 'Camera',
           icon: 'ion-camera, material:md-camera',
           page: Camera,
           theme: red,
           style: this.md ? { maxWidth: '60px' } : {},
           top: -105 // Toolbar + Tabbar heights
-        },
-        {
-          label: 'Home',
-          icon: this.md ? null : 'ion-home',
-          page: Home,
-          theme: red
         },
         {
           label: 'Forms',
@@ -68,6 +68,12 @@ export default {
           icon: this.md ? null : 'ion-film-marker',
           page: Animations,
           theme: purple
+        },
+        {
+          label: 'Inicio',
+          icon: this.md ? null : 'ion-home',
+          page: Inicio,
+          theme: blue
         }
       ]
     };
@@ -108,7 +114,7 @@ export default {
       }
     },
     title() {
-      return this.md ? 'Onsen UI' : this.tabs[this.index].title || this.tabs[this.index].label;
+      return this.md ? 'Urgencias Médicas' : this.tabs[this.index].title || this.tabs[this.index].label;
     },
     swipeTheme() {
       return this.md && {

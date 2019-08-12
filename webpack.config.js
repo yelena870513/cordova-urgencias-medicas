@@ -15,7 +15,7 @@ var browserTargets = [
 ];
 
 var babelOptions = {
-  babelrc: false,
+  babelrc: true,
   presets: [ ['env', { browsers: browserTargets }] ]
 };
 
@@ -77,6 +77,15 @@ module.exports = {
             }
           ]
         })
+      },
+      {
+        test: /\.scss$/,
+        loader: 'vue-style-loader!scss-loader!scss-loader'
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
       }
     ]
   },
@@ -87,6 +96,9 @@ module.exports = {
     }),
     new CopyWebpackPlugin([{
       from: 'static/'
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'src/assets/'
     }])
   ],
   resolve: {

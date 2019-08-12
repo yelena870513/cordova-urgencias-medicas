@@ -1,3 +1,5 @@
+import MultimediaClient from './MultimediaClient';
+import QuestionClient from './QuestionClient';
 export default {
   modules: {
     navigator: {
@@ -50,12 +52,72 @@ export default {
       strict: true,
       namespaced: true,
       state: {
-        index: 1
+        index: 0
       },
       mutations: {
         set(state, index) {
           state.index = index;
         }
+      }
+    },
+
+    multimedia:{
+      strict: true,
+      namespaced: true,
+      state:{
+        contenido:[],
+        mContenido:[],
+        tema:[],
+        creditos:[],
+        reader:{},
+        topic:{},
+        searchMode:false,
+        searchTerm:'',
+        questions:[]
+      },
+      mutations:{
+
+      },
+      actions:{
+        getContent({state,commit}){
+          return MultimediaClient.get()
+              .then((response)=>{
+                state.contenido = response.data.contenido;
+                state.mContenido = Object.assign({},response.data.contenido);
+                state.tema = response.data.tema;
+                state.creditos = response.data.creditos;
+              })
+        },
+        getQuestion({state,commit}){
+          return QuestionClient.get()
+              .then((response)=>{
+                state.questions = response.data.preguntas;
+
+              })
+        },
+        setReader({state,commit},reader){
+          state.reader = reader;
+        },
+        setTopic({state,commit},topic){
+          state.topic = topic;
+        },
+        setSearchMode({state,commit},mode){
+          state.searchMode = mode;
+        },
+        setSearchTerm({state,commit},term){
+          state.searchTerm = term;
+        }
+      },
+      getters:{
+        contenido: state=>state.contenido,
+        mContenido: state=>state.mContenido,
+        tema: state=>state.tema,
+        creditos: state=>state.creditos,
+        reader:state => state.reader,
+        topic:state => state.topic,
+        searchMode:state => state.searchMode,
+        searchTerm:state => state.searchTerm,
+        questions:state => state.questions
       }
     }
   }
