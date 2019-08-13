@@ -1,7 +1,5 @@
 <template>
     <v-ons-page>
-        <custom-toolbar  v-bind="toolbarInfo"></custom-toolbar>
-
         <v-ons-carousel fullscreen swipeable auto-scroll overscrollable
                         :index.sync="carouselIndex"
         >
@@ -59,10 +57,8 @@
 <script>
     import {mapGetters} from 'vuex';
     import _ from "lodash";
-
-
     export default {
-        name: "Questionaire",
+        name: "WrapQuestionaire",
         data() {
             return {
                 carouselIndex: 0,
@@ -85,7 +81,7 @@
                     const result = _.find(question.questionSet, q => {
                         return q.text.toLowerCase().indexOf(this.textAnswer.toLowerCase()) !== -1;
                     });
-                   return !_.isNil(result);
+                    return !_.isNil(result);
                 }
                 return true;
             }

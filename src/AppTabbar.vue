@@ -16,17 +16,16 @@
       :tabbar-style="swipeTheme"
       :tabs="tabs"
       :index.sync="index"
-      @postchange="showTip($event, 'Tip: Try swiping pages!')"
+
     ></v-ons-tabbar>
   </v-ons-page>
 </template>
 
 <script>
-import Camera from './pages/Camera.vue';
-import Home from './pages/Home.vue';
-import Forms from './pages/Forms.vue';
-import Animations from './pages/Animations.vue';
 import Inicio from './pages/Inicio.vue';
+import WrapQuestionaire from './pages/WrapQuestionaire.vue';
+import WrapCredits from './pages/WrapCredits.vue';
+import WrapTheme from './pages/WrapTheme.vue';
 // Just a linear interpolation formula
 const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
 // RGB colors
@@ -44,35 +43,27 @@ export default {
       topPosition: 0,
       tabs: [
         {
-          label: 'Home',
-          icon: this.md ? null : 'ion-home',
-          page: Home,
-          theme: red
-        },
-        {
-          label: this.md ? null : 'Camera',
-          icon: 'ion-camera, material:md-camera',
-          page: Camera,
-          theme: red,
-          style: this.md ? { maxWidth: '60px' } : {},
-          top: -105 // Toolbar + Tabbar heights
-        },
-        {
-          label: 'Forms',
-          icon: this.md ? null : 'ion-edit',
-          page: Forms,
-          theme: blue
-        },
-        {
-          label: 'Anim',
-          icon: this.md ? null : 'ion-film-marker',
-          page: Animations,
-          theme: purple
-        },
-        {
           label: 'Inicio',
           icon: this.md ? null : 'ion-home',
           page: Inicio,
+          theme: blue
+        },
+        {
+          label: 'Temas',
+          icon: this.md ? null : 'ion-ios-book-outline',
+          page: WrapTheme,
+          theme: blue
+        },
+        {
+          label: 'Ejercicios',
+          icon: this.md ? null : 'ion-edit',
+          page: WrapQuestionaire,
+          theme: blue
+        },
+        {
+          label: 'Créditos',
+          icon: this.md ? null : 'ion-ios-list',
+          page: WrapCredits,
           theme: blue
         }
       ]

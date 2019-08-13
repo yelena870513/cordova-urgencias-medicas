@@ -1,0 +1,218 @@
+<template>
+    <v-ons-page>
+        <v-ons-row>
+            <v-ons-col>
+                <v-ons-card>
+                    <v-ons-list>
+                        <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                            <div class="left">
+                                <v-ons-icon icon="fa-question-circle-o" class="list-item__icon"></v-ons-icon>
+                            </div>
+                            <label class="center">
+                                <v-ons-search-input maxlength="20"
+                                                    placeholder="Buscar"
+                                                    v-model="search"
+                                                    @keyup="startSearch()"
+                                >
+                                </v-ons-search-input>
+                            </label>
+                        </v-ons-list-item>
+                    </v-ons-list>
+                </v-ons-card>
+            </v-ons-col>
+        </v-ons-row>
+        <v-ons-row v-show="!searchMode">
+            <v-ons-col>
+                <v-ons-card v-for="t of temas"
+                            :key="t.id"
+                            @click="push(t)"
+                >
+                    <div class="title">{{ t.titulo }}</div>
+                    <div class="content">{{ t.subtitulo }}</div>
+                </v-ons-card>
+            </v-ons-col>
+        </v-ons-row>
+        <v-ons-row v-show="searchMode">
+            <v-ons-col>
+                <v-ons-card v-for="r of searchResults" @click="setContent(r)">
+                    <div class="title"><h5>{{ r.titulo }}</h5></div>
+                    <div class="content" v-html="resolveHtml(r.texto)"></div>
+                </v-ons-card>
+            </v-ons-col>
+        </v-ons-row>
+    </v-ons-page>
+</template>
+
+<script>
+    import { mapActions, mapGetters } from 'vuex';
+    import Topic from './Topic.vue';
+    import SearchView from './SearchView.vue';
+    import _ from 'lodash';
+
+
+    const Resolver = {
+        filterItems(items,search){
+            let searchString = search.toLowerCase();
+            searchString = search.replace(/a/gi, '[a|á]');
+            searchString = search.replace(/e/gi, '[e|é]');
+            searchString = search.replace(/i/gi, '[i|í]');
+            searchString = search.replace(/o/gi, '[o|ó]');
+            searchString = search.replace(/u/gi, '[u|ú]');
+            const sItems = items.filter(f => {
+                const temp = f.texto.toLowerCase().replace(/<\/?[^>]+(>|$)/g, '');
+                return temp.search(searchString) !== -1;
+            });
+            return sItems;
+        }
+
+    };
+
+    export default {
+        name: "WrapTheme",
+        data() {
+            return {
+                search: '',
+                results: []
+            }
+        },
+        methods: {
+            push(item) {
+                this['multimedia/setTopic'](item);
+                this.$store.commit('navigator/push', {
+                    extends: Topic,
+                    data() {
+                        return {
+                            toolbarInfo: {
+                                backLabel: 'Temas',
+                                title: 'Contenidos'
+                            }
+                        }
+                    }
+                });
+            },
+            setContent(item){
+                const contenido = this['multimedia/mContenido'];
+                const reader = _.find(contenido,f=>item.id === f.id);
+                this['multimedia/setSearchTerm'](this.search);
+                if (!_.isNil(reader)) {
+                    this['multimedia/setReader'](reader);
+                    this.$store.commit('navigator/push', {
+                        extends: SearchView,
+                        data() {
+                            return {
+                                toolbarInfo: {
+                                    backLabel: 'Temas',
+                                    title: 'Contenidos'
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    this.$ons.notification.toast({
+                        message:'Ha ocurrido un error cargando el contenido',
+                        timeout: 2000
+                    })
+                }
+
+            },
+            startSearch(){
+                if (this.search.length > 3){
+                    this['multimedia/setSearchMode'](true);
+                }
+                else{
+                    this['multimedia/setSearchMode'](false);
+                }
+            },
+            resolveHtml(html){
+                const search = this.search;
+                if (!search) {
+                    return html;
+                }
+                let exp = search;
+                exp = exp.replace(/a/gi, '[a|á]');
+                exp = exp.replace(/e/gi, '[e|é]');
+                exp = exp.replace(/i/gi, '[i|í]');
+                exp = exp.replace(/o/gi, '[o|ó]');
+                exp = exp.replace(/u/gi, '[u|ú]');
+                const regEx = new RegExp(exp, 'gi');
+                const pos = html.search(regEx);
+                const wordLength = search.length;
+                let ini = pos - 30;
+                let fini = pos + wordLength + 100;
+                let beforeSearch = '';
+                if (ini < 0) {
+                    ini = 0;
+                    beforeSearch =html.slice(ini, pos);
+                } else {
+                    const test =html.slice(ini, pos);
+                    const space = test.indexOf(' ');
+                    let nextToSpace = 0;
+
+                    if (space !== -1) {
+                        nextToSpace = space + 1;
+                    }
+
+                    beforeSearch = test.substr(nextToSpace, test.length);
+
+                }
+
+                if (fini >html.length) {
+                    fini =html.length;
+                }
+
+                const afterSearch =html.substring(pos + wordLength, fini);
+
+                const dword =html.substr(pos, wordLength);
+
+                let todo = beforeSearch + dword + afterSearch;
+
+
+
+                let last = todo.substr(0, Math.min(todo.length, todo.lastIndexOf(' ')));
+
+                last = last + ' ...';
+
+                //todo remove html special chars on content
+                todo = todo.replace(/<\/?[^>]+(>|$)/g, "");
+
+
+
+
+                const res = last.replace(new RegExp(exp, 'gi'), '<span class="highlightedText badge red">$&</span>');
+
+                html = last.replace(/<[^>]*>?/gm, '');
+
+                return html;
+
+
+            },
+            ...mapActions(['multimedia/setTopic', 'multimedia/setSearchMode','multimedia/setReader','multimedia/setSearchTerm'])
+        },
+        computed: {
+            temas() {
+                return this.$store.getters['multimedia/tema'];
+            },
+            searchMode() {
+                return this.$store.getters['multimedia/searchMode'];
+            },
+            searchResults() {
+                const search = this.search;
+                if (search.length > 3) {
+                    let mResults = Object.assign({},Resolver.filterItems(this['multimedia/contenido'],search));
+                    mResults = Object.values(mResults);
+                    return mResults;
+                }
+                else {
+                    return this['multimedia/contenido'];
+                }
+
+            },
+            ...mapGetters(['multimedia/topic','multimedia/contenido', 'multimedia/mContenido'])
+
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

@@ -1,6 +1,5 @@
 <template>
     <v-ons-page>
-        <custom-toolbar  v-bind="toolbarInfo"></custom-toolbar>
         <v-ons-row>
             <v-ons-col>
                 <h2>Equipo</h2>
@@ -52,7 +51,7 @@
 <script>
     import { mapGetters } from 'vuex';
     export default {
-        name: "Credits",
+        name: "WrapCredits",
         computed:{
             institucional(){
                 return this['multimedia/creditos'].filter(f=>f.tipo==='institucional');

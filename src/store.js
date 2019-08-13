@@ -86,7 +86,7 @@ export default {
                 state.mContenido = Object.assign({},response.data.contenido);
                 state.tema = response.data.tema;
                 state.creditos = response.data.creditos;
-              })
+              }).catch(e=>alert(JSON.stringify(e)))
         },
         getQuestion({state,commit}){
           return QuestionClient.get()
@@ -94,6 +94,7 @@ export default {
                 state.questions = response.data.preguntas;
 
               })
+              .catch(e=>alert(JSON.stringify(e)))
         },
         setReader({state,commit},reader){
           state.reader = reader;
