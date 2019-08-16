@@ -1547,7 +1547,7 @@
       "titulo": "Urgencias Cardiovasculares",
       "subTitulo": "Urgencias Cardiovasculares",
       "orden": 1,
-      "img": null,
+      "img": "logo-cardio.png",
       "proyecto": null
     },
     {
@@ -1555,7 +1555,7 @@
       "titulo": "Urgencias Neurológicas",
       "subTitulo": "Urgencias Neurológicas",
       "orden": 2,
-      "img": null,
+      "img": "logo-neuro.png",
       "proyecto": null
     },
     {
@@ -1563,7 +1563,7 @@
       "titulo": "Urgencias Pediátricas",
       "subTitulo": "Urgencias Pediátricas",
       "orden": 3,
-      "img": null,
+      "img": "logo-ped.png",
       "proyecto": null
     },
     {
@@ -1571,7 +1571,7 @@
       "titulo": "Desequilibrio Hidroelectrolítico",
       "subTitulo": "Desequilibrio Hidroelectrolítico",
       "orden": 4,
-      "img": null,
+      "img": "logo-hidro.png",
       "proyecto": null
     },
     {
@@ -1579,7 +1579,7 @@
       "titulo": "Otras urgencias",
       "subTitulo": "Otras urgencias",
       "orden": 5,
-      "img": null,
+      "img": "logo-other.png",
       "proyecto": null
     },
     {
@@ -1587,7 +1587,7 @@
       "titulo": "Urgencias Psiquiátricas",
       "subTitulo": "Urgencias Psiquiátricas",
       "orden": 6,
-      "img": null,
+      "img": "logo-psy.png",
       "proyecto": null
     },
     {
@@ -1595,7 +1595,7 @@
       "titulo": "Urgencias respiratorias",
       "subTitulo": "Urgencias respiratorias",
       "orden": 7,
-      "img": null,
+      "img": "logo-res.png",
       "proyecto": null
     },
     {
@@ -1603,7 +1603,7 @@
       "titulo": "Intoxicaciones Exógenas",
       "subTitulo": "Intoxicaciones Exógenas",
       "orden": 8,
-      "img": null,
+      "img": "logo-into.png",
       "proyecto": null
     },
     {
@@ -1611,7 +1611,7 @@
       "titulo": "Urgencias digestivas",
       "subTitulo": "Urgencias digestivas",
       "orden": 9,
-      "img": null,
+      "img": "logo-digest.png",
       "proyecto": null
     },
     {
@@ -1619,7 +1619,7 @@
       "titulo": "Shock",
       "subTitulo": "Shock",
       "orden": 10,
-      "img": null,
+      "img": "logo-shock.png",
       "proyecto": null
     },
     {
@@ -1627,7 +1627,7 @@
       "titulo": "Traumas",
       "subTitulo": "Traumas",
       "orden": 11,
-      "img": null,
+      "img": "logo-trau.png",
       "proyecto": null
     },
     {
@@ -1635,7 +1635,7 @@
       "titulo": "Sistema de código por colores",
       "subTitulo": "Sistema de código por colores",
       "orden": 12,
-      "img": null,
+      "img": "logo-ultra.png",
       "proyecto": null
     },
     {
@@ -1643,7 +1643,7 @@
       "titulo": "Urgencias Endocrino-Metabólicas",
       "subTitulo": "Urgencias Endocrino-Metabólicas",
       "orden": 13,
-      "img": null,
+      "img": "logo-endo.png",
       "proyecto": null
     },
     {
@@ -1651,7 +1651,7 @@
       "titulo": "Bibliografía",
       "subTitulo": "Bibliografía",
       "orden": 14,
-      "img": null,
+      "img": "logo-ultra.png",
       "proyecto": null
     },
     {
@@ -1659,7 +1659,7 @@
       "titulo": "Urgencias Gineco-Obstétricas",
       "subTitulo": "Urgencias Gineco-Obstétricas",
       "orden": 15,
-      "img": null,
+      "img": "logo-gine.png",
       "proyecto": null
     },
     {
@@ -1667,7 +1667,7 @@
       "titulo": "Urgencias Nefro-Urológicas",
       "subTitulo": "Urgencias Nefro-Urológicas",
       "orden": 16,
-      "img": null,
+      "img": "logo-nefro.png",
       "proyecto": null
     },
     {
@@ -1675,7 +1675,7 @@
       "titulo": "Reanimación cardiopulmonar",
       "subTitulo": "Reanimación cardiopulmonar",
       "orden": 17,
-      "img": null,
+      "img": "logo-other.png",
       "proyecto": null
     },
     {
@@ -1683,7 +1683,7 @@
       "titulo": "Ecografía en urgencias",
       "subTitulo": "Ecografía en urgencias",
       "orden": 18,
-      "img": null,
+      "img": "logo-ultra.png",
       "proyecto": null
     },
     {
@@ -1691,7 +1691,7 @@
       "titulo": "Introducción",
       "subTitulo": "Introducción",
       "orden": 19,
-      "img": null,
+      "img": "logo-gine.png",
       "proyecto": null
     },
     {
@@ -1699,7 +1699,7 @@
       "titulo": "Evaluación de la urgencia",
       "subTitulo": "Evaluación de la urgencia",
       "orden": 20,
-      "img": null,
+      "img": "logo-other.png",
       "proyecto": null
     }
   ],

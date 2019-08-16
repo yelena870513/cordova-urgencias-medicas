@@ -3,7 +3,7 @@
     <custom-toolbar :style="swipeTheme" modifier="white-content">
       {{ title }}
       <v-ons-toolbar-button slot="right" modifier="white-content"
-        @click="$store.commit('splitter/toggle'); showTip(null, 'Try dragging from right edge!')"
+        @click="$store.commit('splitter/toggle');"
       >
         <v-ons-icon icon="ion-navicon, material:md-menu"></v-ons-icon>
       </v-ons-toolbar-button>
@@ -30,7 +30,7 @@ import WrapTheme from './pages/WrapTheme.vue';
 const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
 // RGB colors
 const red = [244, 67, 54];
-const blue = [30, 136, 229];
+const blue = [0, 58, 82];
 const purple = [103, 58, 183];
 
 export default {

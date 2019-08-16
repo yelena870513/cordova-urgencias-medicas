@@ -57,7 +57,7 @@
   --material-range-thumb-color: #31313a;
   --material-toolbar-background-color: #ffffff;
   --material-toolbar-text-color: #31313a;
-  --material-toolbar-button-color: #1e88e5;
+  --material-toolbar-button-color: rgb(0, 58, 82);
   --material-button-background-color: #2979ff;
   --material-button-text-color: #ffffff;
   --material-checkbox-active-color: #37474f;
@@ -87,5 +87,9 @@
   --material-fab-background-color: #ffffff;
   --material-fab-active-background-color: rgba(255, 255, 255, 0.75);
   --material-toast-button-text-color: #bbdefb;
-  --global-urgencia-color: #2bba9e
+  --global-urgencia-color: #2bba9e;
+  --urgencia-color: rgb(0, 58, 82);
+}
+.text-input--material:focus {
+  background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px) !important;
 }

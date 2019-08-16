@@ -6,16 +6,13 @@
                 <v-ons-card>
                     <v-ons-list>
                         <v-ons-list-item :modifier="md ? 'nodivider' : ''">
-                            <div class="left">
-                                <v-ons-icon icon="fa-question-circle-o" class="list-item__icon"></v-ons-icon>
-                            </div>
                             <label class="center">
-                                <v-ons-search-input maxlength="20"
+                                <v-ons-input maxlength="20"
                                                     placeholder="Buscar"
                                                     v-model="search"
                                                     @keyup="startSearch()"
                                 >
-                                </v-ons-search-input>
+                                </v-ons-input>
                             </label>
                         </v-ons-list-item>
                     </v-ons-list>
@@ -28,7 +25,7 @@
                             :key="t.id"
                             @click="push(t)"
                 >
-                    <div class="title">{{ t.titulo }}</div>
+                    <div class="title"><div class="logo"><img :src="'./assets/images/logo/'+t.img"/></div> {{ t.titulo }}</div>
                     <div class="content">{{ t.subtitulo }}</div>
                 </v-ons-card>
             </v-ons-col>
@@ -38,6 +35,9 @@
                 <v-ons-card v-for="r of searchResults" @click="setContent(r)">
                     <div class="title"><h5>{{ r.titulo }}</h5></div>
                     <div class="content" v-html="resolveHtml(r.texto)"></div>
+                </v-ons-card>
+                <v-ons-card v-show="searchResults.length ===0">
+                    <div class="title"><h5>No hubo resultados para su búsqueda</h5></div>
                 </v-ons-card>
             </v-ons-col>
         </v-ons-row>
@@ -214,5 +214,28 @@
 </script>
 
 <style scoped>
-
+.logo img {
+    width: 50px;
+    height: 50px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.title {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content:flex-start;
+    font-size: 18px;
+}
+.text-input--material:focus {
+    background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px);
+    -webkit-animation: material-text-input-animate 0.3s forwards;
+    animation: material-text-input-animate 0.3s forwards;
+}
+v-ons-input:focus{
+    background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px);
+    -webkit-animation: material-text-input-animate 0.3s forwards;
+    animation: material-text-input-animate 0.3s forwards;
+}
 </style>

@@ -7,10 +7,10 @@
                                  class="carousel-item"
                                  :style="{ backgroundColor: '#ffffff' }"
             >
-                <v-ons-row>
+                <v-ons-row v-bind:class="{'write-top': question.type === 'write' }">
                     <v-ons-col>
                         <v-ons-list v-if="question.type === 'radio'">
-                            <v-ons-list-header>{{ question.header }}</v-ons-list-header>
+                            <v-ons-list-header class="question-header">{{ question.header }}</v-ons-list-header>
                             <v-ons-list-item v-for="(ask, $index) in question.questionSet" :key="ask.id"
                                              tappable
                                              :modifier="($index === question.questionSet.length - 1) ? 'longdivider' : ''"
@@ -32,7 +32,7 @@
 
                         </v-ons-list>
                         <v-ons-list v-show="question.type === 'write'">
-                            <v-ons-list-header>{{ question.header }}</v-ons-list-header>
+                            <v-ons-list-header class="question-header">{{ question.header }}</v-ons-list-header>
                             <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                                 <label class="center">
                                     <v-ons-input float maxlength="20"
@@ -49,8 +49,22 @@
                         </v-ons-list>
                     </v-ons-col>
                 </v-ons-row>
+                <v-ons-fab modifier="material" background="rgba(0, 58, 82, 0.8)" position="bottom right" ripple @click="showAnswer(question)">
+                    <v-ons-ripple  modifier="material" background="rgba(0, 58, 82, 0.8)" color="rgb(0, 58, 82)"></v-ons-ripple>
+                    <v-ons-icon icon="ion-edit, material:md-edit" size="32px, material:24px" color="#ffffff"></v-ons-icon>
+                </v-ons-fab>
             </v-ons-carousel-item>
         </v-ons-carousel>
+        <v-ons-alert-dialog
+                            :modifier="md ? '' : 'rowfooter'"
+                            :title="'Respuesta'"
+                            :footer="{
+        'OK': () => alertDialogVisible = false
+      }"
+                            :visible.sync="alertDialogVisible"
+        >
+            {{answerDialog}} <v-ons-icon icon="fa-commenting-o"></v-ons-icon>
+        </v-ons-alert-dialog>
     </v-ons-page>
 </template>
 
@@ -63,7 +77,10 @@
             return {
                 carouselIndex: 0,
                 answer: '',
-                textAnswer: ''
+                textAnswer: '',
+                dialogVisible: false,
+                alertDialogVisible: false,
+                answerDialog:''
             };
         },
         computed: {
@@ -84,6 +101,18 @@
                     return !_.isNil(result);
                 }
                 return true;
+            },
+            showAnswer(question){
+                let answer;
+                if (question.type === 'radio') {
+                    answer = _.find(question.questionSet, q=>q.value === true);
+                    this.answerDialog = answer.text;
+                }
+                else{
+                    this.answerDialog = question.questionSet.map(m=>m.text).join(', ');
+                }
+                this.alertDialogVisible = true;
+
             }
         }
     }
@@ -133,5 +162,27 @@
     .success .text-input--material{
         color:green;
         border: solid 1px green;
+    }
+
+    ons-row, v-ons-row {
+        margin-top: 0%;
+    }
+
+    ons-row.write-top, v-ons-row.write-top{
+        margin-top: -50%;
+    }
+
+    .question-header{
+        font-size: 24px;
+        text-align: center;
+        color: rgb(0, 58, 82) ;
+        font-weight: 700;
+    }
+
+     .fab{
+        background-color: rgb(0, 58, 82) ;
+    }
+    .fab ons-icon {
+        color: #ffffff;
     }
 </style>

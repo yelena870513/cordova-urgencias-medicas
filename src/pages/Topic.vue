@@ -53,5 +53,10 @@
 </script>
 
 <style scoped>
-
+.intro {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    color: rgb(0, 58, 82)
+}
 </style>
