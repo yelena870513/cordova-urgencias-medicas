@@ -93,3 +93,7 @@
 .text-input--material:focus {
   background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px) !important;
 }
+.highlightedText.badge.red {
+  background-color: rgb(244, 67, 54);
+  color: white;
+}

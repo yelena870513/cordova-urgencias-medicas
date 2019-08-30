@@ -129,6 +129,7 @@
                 if (!search) {
                     return html;
                 }
+                let parsed = this.parseText(html);
                 let exp = search;
                 exp = exp.replace(/a/gi, '[a|á]');
                 exp = exp.replace(/e/gi, '[e|é]');
@@ -136,16 +137,16 @@
                 exp = exp.replace(/o/gi, '[o|ó]');
                 exp = exp.replace(/u/gi, '[u|ú]');
                 const regEx = new RegExp(exp, 'gi');
-                const pos = html.search(regEx);
+                const pos = parsed.search(regEx);
                 const wordLength = search.length;
                 let ini = pos - 30;
                 let fini = pos + wordLength + 100;
                 let beforeSearch = '';
                 if (ini < 0) {
                     ini = 0;
-                    beforeSearch =html.slice(ini, pos);
+                    beforeSearch =parsed.slice(ini, pos);
                 } else {
-                    const test =html.slice(ini, pos);
+                    const test =parsed.slice(ini, pos);
                     const space = test.indexOf(' ');
                     let nextToSpace = 0;
 
@@ -157,16 +158,15 @@
 
                 }
 
-                if (fini >html.length) {
-                    fini =html.length;
+                if (fini >parsed.length) {
+                    fini =parsed.length;
                 }
 
-                const afterSearch =html.substring(pos + wordLength, fini);
+                const afterSearch =parsed.substring(pos + wordLength, fini);
 
-                const dword =html.substr(pos, wordLength);
+                const dword =parsed.substr(pos, wordLength);
 
                 let todo = beforeSearch + dword + afterSearch;
-
 
 
                 let last = todo.substr(0, Math.min(todo.length, todo.lastIndexOf(' ')));
@@ -177,15 +177,15 @@
                 todo = todo.replace(/<\/?[^>]+(>|$)/g, "");
 
 
-
-
                 const res = last.replace(new RegExp(exp, 'gi'), '<span class="highlightedText badge red">$&</span>');
 
-                html = last.replace(/<[^>]*>?/gm, '');
-
-                return html;
+                return res;
 
 
+            },
+            parseText(html){
+                var doc = new DOMParser().parseFromString(html, 'text/html');
+                return doc.body.textContent || "";
             },
             ...mapActions(['multimedia/setTopic', 'multimedia/setSearchMode','multimedia/setReader','multimedia/setSearchTerm'])
         },
@@ -238,5 +238,10 @@
         background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px);
         -webkit-animation: material-text-input-animate 0.3s forwards;
         animation: material-text-input-animate 0.3s forwards;
+    }
+
+    .highlightedText.badge.red {
+        background-color: rgb(244, 67, 54);
+        color: white;
     }
 </style>

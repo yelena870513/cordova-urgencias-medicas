@@ -26,6 +26,7 @@ import Inicio from './pages/Inicio.vue';
 import WrapQuestionaire from './pages/WrapQuestionaire.vue';
 import WrapCredits from './pages/WrapCredits.vue';
 import WrapTheme from './pages/WrapTheme.vue';
+import Authors from './pages/Authors.vue';
 // Just a linear interpolation formula
 const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
 // RGB colors
@@ -64,6 +65,12 @@ export default {
           label: 'Créditos',
           icon: this.md ? null : 'ion-ios-list',
           page: WrapCredits,
+          theme: blue
+        },
+        {
+          label: 'Autores',
+          icon: this.md ? null : 'fa-fa-users',
+          page: Authors,
           theme: blue
         }
       ]

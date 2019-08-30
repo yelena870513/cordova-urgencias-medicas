@@ -53,6 +53,10 @@ export default {
         {
           title: 'Créditos',
           icon: 'ion-film-marker, material: md-movie-alt'
+        },
+        {
+          title: 'Autores',
+          icon: 'ion-film-marker, material: md-movie-alt'
         }
       ]
     };
