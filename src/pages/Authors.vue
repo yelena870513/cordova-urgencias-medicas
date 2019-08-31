@@ -11,8 +11,8 @@
                     <div class="title">
                         {{ value.name }}<br/>
                         <div class="description">
-                            <div class="logo" :style="{ backgroundImage: './assets/images/'+value.pic }">
-                                <img class="profile" :src="'./assets/images/'+value.pic"/>
+                            <div class="logo" >
+                                <img class="profile" :src="'./assets/images/autor/'+value.pic"/>
                             </div>
                             <small>{{value.subject}}</small>
                         </div>
