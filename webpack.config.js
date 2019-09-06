@@ -16,7 +16,8 @@ var browserTargets = [
 
 var babelOptions = {
   babelrc: true,
-  presets: [ ['env', { browsers: browserTargets }] ]
+  presets: [ ['env', { browsers: browserTargets }] ],
+  plugins: ['transform-runtime']
 };
 
 module.exports = {

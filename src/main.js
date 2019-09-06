@@ -12,25 +12,30 @@ import storeLike from './store.js';
 import CustomToolbar from './partials/CustomToolbar.vue';
 import AppNavigator from './AppNavigator.vue';
 
-Vue.use(Vuex);
-Vue.use(VueOnsen);
+const bootApp = ()=>{
+  Vue.use(Vuex);
+  Vue.use(VueOnsen);
 
 // Register components globally
 // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
-Vue.component('custom-toolbar', CustomToolbar); // Common toolbar
+  Vue.component('custom-toolbar', CustomToolbar); // Common toolbar
+  new Vue({
+        el: '#app',
+        render: h => h(AppNavigator),
+        store: new Vuex.Store(storeLike),
+        beforeCreate() {
+          // Shortcut for Material Design
+          Vue.prototype.md = this.$ons.platform.isAndroid();
 
-new Vue({
-  el: '#app',
-  render: h => h(AppNavigator),
-  store: new Vuex.Store(storeLike),
-  beforeCreate() {
-    // Shortcut for Material Design
-    Vue.prototype.md = this.$ons.platform.isAndroid();
+          // Set iPhoneX flag based on URL
+          if (window.location.search.match(/iphonex/i)) {
+            document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+            document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+          }
+        }
+      });
+}
+;
 
-    // Set iPhoneX flag based on URL
-    if (window.location.search.match(/iphonex/i)) {
-      document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
-      document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
-    }
-  }
-});
+
+document.addEventListener('deviceready', bootApp, false);
