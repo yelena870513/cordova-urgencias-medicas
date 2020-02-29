@@ -7,18 +7,16 @@
             En múltiples ocasiones, producto del grosor del contenido que se debe memorizar en relación con los criterios de diagnóstico y conducta a seguir con las entidades a las cuales nos enfrentamos en nuestras guardias médicas, nos hemos encontrado ante la necesidad de una guía de referencia rápida, principalmente en el personal de poca experiencia.
             Por todo ello se hace necesario contar con un soporte digital que nos permita cumplir con mayor prontitud nuestra tarea
         </p>
-
-        <v-ons-card v-for="page of pages" :key="page.label"
-                    @click="push(page.component, page.label)"
-        >
-            <div class="title">{{ page.label }}</div>
-            <div class="content">{{ page.desc }}</div>
-        </v-ons-card>
+        <parallax :speed-factor="0.3" breakpoint="(min-width: 80px)">
+            <img src="assets/images/parallax2.png" alt="urgencias">
+        </parallax>
     </v-ons-page>
 </template>
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
+    import Parallax from 'vue-parallaxy'
+
     import  Themes  from './Themes.vue';
     import  Questionaire  from './Questionaire.vue';
     import  Credits  from './Credits.vue';
@@ -66,6 +64,9 @@
         created() {
             this['multimedia/getContent']();
             this['multimedia/getQuestion']();
+        },
+        components: {
+            Parallax
         }
     }
 </script>

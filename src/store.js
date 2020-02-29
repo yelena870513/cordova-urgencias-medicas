@@ -1,5 +1,5 @@
-import MultimediaClient from './MultimediaClient';
-import QuestionClient from './QuestionClient';
+import MultimediaClient from './MultimediaClient'
+import QuestionClient from './QuestionClient'
 export default {
   modules: {
     navigator: {
@@ -11,22 +11,22 @@ export default {
       },
       mutations: {
         push(state, page) {
-          state.stack.push(page);
+          state.stack.push(page)
         },
         pop(state) {
           if (state.stack.length > 1) {
-            state.stack.pop();
+            state.stack.pop()
           }
         },
         replace(state, page) {
-          state.stack.pop();
-          state.stack.push(page);
+          state.stack.pop()
+          state.stack.push(page)
         },
         reset(state, page) {
-          state.stack = [page || state.stack[0]];
+          state.stack = [page || state.stack[0]]
         },
         options(state, newOptions = {}) {
-          state.options = newOptions;
+          state.options = newOptions
         }
       }
     },
@@ -40,9 +40,9 @@ export default {
       mutations: {
         toggle(state, shouldOpen) {
           if (typeof shouldOpen === 'boolean') {
-            state.open = shouldOpen;
+            state.open = shouldOpen
           } else {
-            state.open = !state.open;
+            state.open = !state.open
           }
         }
       }
@@ -56,70 +56,71 @@ export default {
       },
       mutations: {
         set(state, index) {
-          state.index = index;
+          state.index = index
         }
       }
     },
 
-    multimedia:{
+    multimedia: {
       strict: true,
       namespaced: true,
-      state:{
-        contenido:[],
-        mContenido:[],
-        tema:[],
-        creditos:[],
-        reader:{},
-        topic:{},
-        searchMode:false,
-        searchTerm:'',
-        questions:[]
+      state: {
+        contenido: [],
+        mContenido: [],
+        tema: [],
+        creditos: [],
+        reader: {},
+        topic: {},
+        searchMode: false,
+        searchTerm: '',
+        questions: []
       },
-      mutations:{
+      mutations: {
 
       },
-      actions:{
-        getContent({state,commit}){
+      actions: {
+        getContent({ state, commit }) {
           return MultimediaClient.get()
-              .then((response)=>{
-                state.contenido = response.data.contenido;
-                state.mContenido = Object.assign({},response.data.contenido);
-                state.tema = response.data.tema;
-                state.creditos = response.data.creditos;
-              }).catch(e=>alert(JSON.stringify(e)))
+            .then((response) => {
+              state.contenido = response.data.contenido
+              state.mContenido = Object.assign({}, response.data.contenido)
+              state.tema = response.data.tema
+              state.creditos = response.data.creditos
+            }).catch(e => alert(JSON.stringify(e)))
         },
-        getQuestion({state,commit}){
+        getQuestion({ state, commit }) {
           return QuestionClient.get()
-              .then((response)=>{
-                state.questions = response.data.preguntas;
-
-              })
-              .catch(e=>alert(JSON.stringify(e)))
+            .then((response) => {
+              state.questions = response.data.preguntas
+            })
+            .catch(e => alert(JSON.stringify(e)))
         },
-        setReader({state,commit},reader){
-          state.reader = reader;
+        setReader({ state, commit }, reader) {
+          state.reader = reader
         },
-        setTopic({state,commit},topic){
-          state.topic = topic;
+        setTopic({ state, commit }, topic) {
+          state.topic = topic
         },
-        setSearchMode({state,commit},mode){
-          state.searchMode = mode;
+        setSearchMode({ state, commit }, mode) {
+          state.searchMode = mode
         },
-        setSearchTerm({state,commit},term){
-          state.searchTerm = term;
+        setSearchTerm({ state, commit }, term) {
+          state.searchTerm = term
         }
       },
-      getters:{
-        contenido: state=>state.contenido,
-        mContenido: state=>state.mContenido,
-        tema: state=>state.tema,
-        creditos: state=>state.creditos,
-        reader:state => state.reader,
-        topic:state => state.topic,
-        searchMode:state => state.searchMode,
-        searchTerm:state => state.searchTerm,
-        questions:state => state.questions
+      getters: {
+        contenido: state => state.contenido,
+        mContenido: state => state.mContenido,
+        tema: state => state.tema.sort((a, b) => {
+          return a.orden - b.orden
+        }),
+        creditos: state => state.creditos,
+        reader: state => state.reader,
+        topic: state => state.topic,
+        searchMode: state => state.searchMode,
+        searchTerm: state => state.searchTerm,
+        questions: state => state.questions
       }
     }
   }
-};
+}

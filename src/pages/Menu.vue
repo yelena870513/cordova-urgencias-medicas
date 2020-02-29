@@ -47,7 +47,7 @@ export default {
           icon: 'ion-book, material:md-book'
         },
         {
-          title: 'Ejercicios',
+          title: 'Cuestionario',
           icon: 'ion-edit, material:md-edit'
         },
         {

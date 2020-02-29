@@ -56,7 +56,7 @@ export default {
           theme: blue
         },
         {
-          label: 'Ejercicios',
+          label: 'Cuestionario',
           icon: this.md ? null : 'ion-edit',
           page: WrapQuestionaire,
           theme: blue

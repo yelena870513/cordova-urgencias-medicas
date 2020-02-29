@@ -189,7 +189,7 @@
         },
         computed: {
             temas() {
-                return this.$store.getters['multimedia/tema'];
+                return this.$store.getters['multimedia/tema'].sort((a, b) => { return a.orden - b.orden });
             },
             searchMode() {
                 return this.$store.getters['multimedia/searchMode'];
