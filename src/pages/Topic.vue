@@ -59,4 +59,7 @@
     text-align: center;
     color: rgb(0, 58, 82)
 }
+.card--material__title, .title {
+    font-size: 18px;
+}
 </style>

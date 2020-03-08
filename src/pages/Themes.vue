@@ -225,7 +225,7 @@
     align-content: center;
     align-items: center;
     justify-content:flex-start;
-    font-size: 18px;
+    font-size: 14px;
 }
 .text-input--material:focus {
     background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px);

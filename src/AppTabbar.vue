@@ -2,14 +2,14 @@
   <v-ons-page :style="swipePosition">
     <custom-toolbar :style="swipeTheme" modifier="white-content">
       {{ title }}
-      <v-ons-toolbar-button slot="right" modifier="white-content"
+     <!-- <v-ons-toolbar-button slot="right" modifier="white-content"
         @click="$store.commit('splitter/toggle');"
       >
         <v-ons-icon icon="ion-navicon, material:md-menu"></v-ons-icon>
-      </v-ons-toolbar-button>
+      </v-ons-toolbar-button> -->
     </custom-toolbar>
 
-    <v-ons-tabbar position="auto"
+    <v-ons-tabbar position="bottom"
       swipeable
       :modifier="md ? 'autogrow white-content' : ''"
       :on-swipe="md ? onSwipe : null"
@@ -45,31 +45,31 @@ export default {
       tabs: [
         {
           label: 'Inicio',
-          icon: this.md ? null : 'ion-home',
+          icon: this.md ? 'md-home' : 'ion-home',
           page: Inicio,
           theme: blue
         },
         {
           label: 'Temas',
-          icon: this.md ? null : 'ion-ios-book-outline',
+          icon: this.md ? 'md-book' : 'ion-ios-book-outline',
           page: WrapTheme,
           theme: blue
         },
         {
           label: 'Cuestionario',
-          icon: this.md ? null : 'ion-edit',
+          icon: this.md ? 'md-edit' : 'ion-edit',
           page: WrapQuestionaire,
           theme: blue
         },
         {
           label: 'Créditos',
-          icon: this.md ? null : 'ion-ios-list',
+          icon: this.md ? 'md-group-work' : 'ion-ios-list',
           page: WrapCredits,
           theme: blue
         },
         {
           label: 'Autores',
-          icon: this.md ? null : 'fa-fa-users',
+          icon: this.md ? 'md-accounts' : 'fa-fa-users',
           page: Authors,
           theme: blue
         }
