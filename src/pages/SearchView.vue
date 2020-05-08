@@ -7,7 +7,7 @@
             </v-ons-row>
             <v-ons-row>
                 <v-ons-col v-go-result="search">
-                    <div v-html="searchFor(reader.texto)"></div>
+                    <div class="search-navigation" v-html="searchFor(reader.texto)"></div>
                 </v-ons-col>
             </v-ons-row>
         </v-ons-card>
@@ -48,15 +48,15 @@
 
                 const regEx = new RegExp(exp, 'gi');
 
-                const full = html.replace(new RegExp(exp, 'gi'), '<span class="highlightedText badge red">$&</span>');
+                const full = html.replace(regEx, '<span class="highlightedText badge red">$&</span>');
 
                 return full;
             }
         },
         directives: {
             'go-result'(el, binding, vnode) {
-                const refreshNodes=()=>{
-                    const list = document.querySelectorAll('span.highlightedText');
+                const refreshNodes= () => {
+                    const list = document.querySelectorAll('.search-navigation span.highlightedText');
                     const arr = Array.prototype.slice.call(list);
                     for (const a of arr) {
                         a.classList.remove('visited');
@@ -67,13 +67,16 @@
                     if (_.isNil(value)) {
                         return;
                     }
-                    const nodeList = document.querySelectorAll('span.highlightedText:not(.visited)');
+                    const nodeList = document.querySelectorAll('.search-navigation span.highlightedText:not(.visited)');
                     const buffer = Array.prototype.slice.call(nodeList);
                     let len = buffer.length;
                     if (buffer.length > 0) {
-                        window.scrollTo(buffer[0].offsetLeft, buffer[0].offsetTop);
-                        buffer[0].scrollIntoView();
-                        buffer[0].classList.add('visited');
+                        const reference = buffer[0];
+                        reference.id = new Date().getTime().toString();
+                        const cursor_el = document.getElementById(reference.id);
+                        window.scrollTo(0, cursor_el.offsetTop);
+                        cursor_el.scrollIntoView();
+                        cursor_el.classList.add('visited');
                         len--;
                         if (len===0) {
                             refreshNodes();

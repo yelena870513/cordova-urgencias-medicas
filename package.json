@@ -23,6 +23,7 @@
     "onsenui": "^2.10.2",
     "sass-loader": "^7.1.0",
     "vue": "^2.5.3",
+    "vue-easy-lightbox": "^0.11.0",
     "vue-onsenui": "^2.6.1",
     "vue-parallaxy": "^1.1.1",
     "vuex": "^3.0.1"

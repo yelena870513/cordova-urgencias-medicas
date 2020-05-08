@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unsupported-features/es-syntax */
 import MultimediaClient from './MultimediaClient'
 import QuestionClient from './QuestionClient'
 export default {
@@ -105,7 +106,7 @@ export default {
           state.searchMode = mode
         },
         setSearchTerm({ state, commit }, term) {
-          state.searchTerm = term
+          state.searchTerm = term.toLowerCase()
         }
       },
       getters: {

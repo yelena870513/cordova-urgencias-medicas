@@ -8,9 +8,9 @@
                         <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                             <label class="center">
                                 <v-ons-input maxlength="20"
-                                                    placeholder="Buscar"
-                                                    v-model="search"
-                                                    @keyup="startSearch()"
+                                             placeholder="Buscar"
+                                             v-model="search"
+                                             @keyup="startSearch()"
                                 >
                                 </v-ons-input>
                             </label>
@@ -25,7 +25,10 @@
                             :key="t.id"
                             @click="push(t)"
                 >
-                    <div class="title"><div class="logo"><img :src="'./assets/images/logo/'+t.img"/></div> {{ t.titulo }}</div>
+                    <div class="title">
+                        <div class="logo"><img :src="'./assets/images/logo/'+t.img"/></div>
+                        {{ t.titulo }}
+                    </div>
                     <div class="content">{{ t.subtitulo }}</div>
                 </v-ons-card>
             </v-ons-col>
@@ -36,7 +39,7 @@
                     <div class="title"><h5>{{ r.titulo }}</h5></div>
                     <div class="content" v-html="resolveHtml(r.texto)"></div>
                 </v-ons-card>
-                <v-ons-card v-show="searchResults.length ===0">
+                <v-ons-card v-show="searchResults.length === 0">
                     <div class="title"><h5>No hubo resultados para su búsqueda</h5></div>
                 </v-ons-card>
             </v-ons-col>
@@ -45,14 +48,14 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import Topic from './Topic.vue';
     import SearchView from './SearchView.vue';
     import _ from 'lodash';
 
 
     const Resolver = {
-        filterItems(items,search){
+        filterItems(items, search) {
             let searchString = search.toLowerCase();
             searchString = search.replace(/a/gi, '[a|á]');
             searchString = search.replace(/e/gi, '[e|é]');
@@ -61,8 +64,10 @@
             searchString = search.replace(/u/gi, '[u|ú]');
             const sItems = items.filter(f => {
                 const temp = f.texto.toLowerCase().replace(/<\/?[^>]+(>|$)/g, '');
+                console.log(temp);
                 return temp.search(searchString) !== -1;
             });
+            console.log(sItems);
             return sItems;
         }
 
@@ -90,9 +95,9 @@
                     }
                 });
             },
-            setContent(item){
+            setContent(item) {
                 const contenido = this['multimedia/mContenido'];
-                const reader = _.find(contenido,f=>item.id === f.id);
+                const reader = _.find(contenido, f => item.id === f.id);
                 this['multimedia/setSearchTerm'](this.search);
                 if (!_.isNil(reader)) {
                     this['multimedia/setReader'](reader);
@@ -107,29 +112,28 @@
                             }
                         }
                     });
-                }else{
+                } else {
                     this.$ons.notification.toast({
-                        message:'Ha ocurrido un error cargando el contenido',
+                        message: 'Ha ocurrido un error cargando el contenido',
                         timeout: 2000
                     })
                 }
 
             },
-            startSearch(){
-                if (this.search.length > 3){
+            startSearch() {
+                if (this.search.length > 3) {
                     this['multimedia/setSearchMode'](true);
-                }
-                else{
+                } else {
                     this['multimedia/setSearchMode'](false);
                 }
             },
-            resolveHtml(html){
+            resolveHtml(html) {
                 const search = this.search;
                 if (!search) {
                     return html;
                 }
-                let parsed = this.parseText(html);
-                let exp = search;
+                let parsed = this.parseText(html).toLowerCase();
+                let exp = search.toString().toLowerCase();
                 exp = exp.replace(/a/gi, '[a|á]');
                 exp = exp.replace(/e/gi, '[e|é]');
                 exp = exp.replace(/i/gi, '[i|í]');
@@ -143,9 +147,9 @@
                 let beforeSearch = '';
                 if (ini < 0) {
                     ini = 0;
-                    beforeSearch =parsed.slice(ini, pos);
+                    beforeSearch = parsed.slice(ini, pos);
                 } else {
-                    const test =parsed.slice(ini, pos);
+                    const test = parsed.slice(ini, pos);
                     const space = test.indexOf(' ');
                     let nextToSpace = 0;
 
@@ -157,13 +161,13 @@
 
                 }
 
-                if (fini >parsed.length) {
-                    fini =parsed.length;
+                if (fini > parsed.length) {
+                    fini = parsed.length;
                 }
 
-                const afterSearch =parsed.substring(pos + wordLength, fini);
+                const afterSearch = parsed.substring(pos + wordLength, fini);
 
-                const dword =parsed.substr(pos, wordLength);
+                const dword = parsed.substr(pos, wordLength);
 
                 let todo = beforeSearch + dword + afterSearch;
 
@@ -181,65 +185,69 @@
                 return res;
 
             },
-            parseText(html){
+            parseText(html) {
                 var doc = new DOMParser().parseFromString(html, 'text/html');
                 return doc.body.textContent || "";
             },
-            ...mapActions(['multimedia/setTopic', 'multimedia/setSearchMode','multimedia/setReader','multimedia/setSearchTerm'])
+            ...mapActions(['multimedia/setTopic', 'multimedia/setSearchMode', 'multimedia/setReader', 'multimedia/setSearchTerm'])
         },
         computed: {
             temas() {
-                return this.$store.getters['multimedia/tema'].sort((a, b) => { return a.orden - b.orden });
+                return this.$store.getters['multimedia/tema'].sort((a, b) => {
+                    return a.orden - b.orden
+                });
             },
             searchMode() {
                 return this.$store.getters['multimedia/searchMode'];
             },
             searchResults() {
-                const search = this.search;
+                const search = this.search.toLowerCase();
                 if (search.length > 3) {
-                    let mResults = Object.assign({},Resolver.filterItems(this['multimedia/contenido'],search));
+                    let mResults = Object.assign({}, Resolver.filterItems(this['multimedia/contenido'], search));
                     mResults = Object.values(mResults);
+                    console.log(mResults);
                     return mResults;
-                }
-                else {
+                } else {
                     return this['multimedia/contenido'];
                 }
-
             },
-            ...mapGetters(['multimedia/topic','multimedia/contenido', 'multimedia/mContenido'])
+            ...mapGetters(['multimedia/topic', 'multimedia/contenido', 'multimedia/mContenido'])
 
         }
     }
 </script>
 
 <style scoped>
-.logo img {
-    width: 50px;
-    height: 50px;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-}
-.title {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-    justify-content:flex-start;
-    font-size: 14px;
-}
-.text-input--material:focus {
-    background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px);
-    -webkit-animation: material-text-input-animate 0.3s forwards;
-    animation: material-text-input-animate 0.3s forwards;
-}
-v-ons-input:focus{
-    background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px);
-    -webkit-animation: material-text-input-animate 0.3s forwards;
-    animation: material-text-input-animate 0.3s forwards;
-}
+    .logo img {
+        width: 50px;
+        height: 50px;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
 
-.highlightedText.badge.red {
-    background-color: rgb(244, 67, 54);
-    color: white;
-}
+    .title {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 14px;
+    }
+
+    .text-input--material:focus {
+        background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px);
+        -webkit-animation: material-text-input-animate 0.3s forwards;
+        animation: material-text-input-animate 0.3s forwards;
+    }
+
+    v-ons-input:focus {
+        background-image: linear-gradient(rgb(0, 58, 82), rgb(0, 58, 82)), linear-gradient(to top, transparent 1px, #afafaf 1px);
+        -webkit-animation: material-text-input-animate 0.3s forwards;
+        animation: material-text-input-animate 0.3s forwards;
+    }
+
+    .highlightedText.badge.red {
+        background-color: rgb(244, 67, 54);
+        color: white;
+    }
 </style>

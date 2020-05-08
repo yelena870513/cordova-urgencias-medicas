@@ -60,7 +60,8 @@
             searchString = search.replace(/o/gi, '[o|ó]');
             searchString = search.replace(/u/gi, '[u|ú]');
             const sItems = items.filter(f => {
-                const temp = f.texto.toLowerCase().replace(/<\/?[^>]+(>|$)/g, '');
+                let temp = f.texto.replace(/<\/?[^>]+(>|$)/g, '');
+                temp = temp.toLowerCase();
                 return temp.search(searchString) !== -1;
             });
             return sItems;
@@ -191,16 +192,17 @@
         },
         computed: {
             temas() {
-                return this.$store.getters['multimedia/tema'];
+                return this.$store.getters['multimedia/tema'].filter((el) => {
+                    return el.id !== 22 && el.id !== 14;
+                });
             },
             searchMode() {
                 return this.$store.getters['multimedia/searchMode'];
             },
             searchResults() {
-                const search = this.search;
+                const search = this.search.toLocaleLowerCase();
                 if (search.length > 3) {
                     let mResults = Object.assign({},Resolver.filterItems(this['multimedia/contenido'],search));
-                    mResults = Object.values(mResults);
                     return mResults;
                 }
                 else {
