@@ -26,8 +26,8 @@ module.exports = {
     "eol-last": 2,
     "eqeqeq": [0, "smart"],
     "max-depth": [1, 3],
-    "max-len": [1, 80],
-    "max-statements": [1, 15],
+    "max-len": [1, 120],
+    "max-statements": [1, 24],
     "new-cap": 1,
     "no-extend-native": 2,
     "no-mixed-spaces-and-tabs": 2,
@@ -40,7 +40,7 @@ module.exports = {
     "space-unary-ops": 2,
     "semi": 1,
     "space-before-function-paren": 0,
-    "node/no-unsupported-features": ["warn", {
+    "node/no-unsupported-features": ["error", {
       "version": 8,
       "ignores": ["syntax"]
     }],
