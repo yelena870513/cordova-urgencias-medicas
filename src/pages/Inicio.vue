@@ -14,51 +14,11 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import { mapActions } from 'vuex';
     import Parallax from 'vue-parallaxy'
-
-    import  Themes  from './Themes.vue';
-    import  Questionaire  from './Questionaire.vue';
-    import  Credits  from './Credits.vue';
     export default {
         name: "Inicio",
-        data(){
-            return {
-                pages: [
-                    {
-                        component: Themes,
-                        label: 'Temas',
-                        desc: 'Temas de urgencias.'
-                    },
-                    {
-                        component: Questionaire,
-                        label: 'Cuestionario',
-                        desc: 'Ejercicios'
-                    },
-                    {
-                        component: Credits,
-                        label: 'Créditos Institucionales',
-                        desc: 'Equipo y Autores'
-                    }
-                ]
-
-            }
-        },
         methods: {
-            push(page, key) {
-                this.$store.commit('navigator/push', {
-                    extends: page,
-                    data() {
-                        return {
-                            toolbarInfo: {
-                                backLabel: 'Inicio',
-                                title: key
-                            }
-                        }
-                    }
-                });
-            }
-            ,
             ...mapActions(['multimedia/getContent', 'multimedia/getQuestion'])
         },
         created() {

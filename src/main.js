@@ -10,15 +10,18 @@ import VueOnsen from 'vue-onsenui' // For UMD
 // import * as OnsenComponents from './onsen-components'; // For ESM
 import storeLike from './store.js'
 import CustomToolbar from './partials/CustomToolbar.vue'
+import GoTop from './partials/GoTop.vue'
 import AppNavigator from './AppNavigator.vue'
 
 const bootApp = () => {
+  window.screen.orientation.lock('portrait')
   Vue.use(Vuex)
   Vue.use(VueOnsen)
 
   // Register components globally
   // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
   Vue.component('custom-toolbar', CustomToolbar) // Common toolbar
+  Vue.component('go-top', GoTop) // Common gotop
   new Vue({
     el: '#app',
     render: h => h(AppNavigator),

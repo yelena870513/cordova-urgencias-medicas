@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
 const MultimediaClient = axios.create({
-    baseURL:'./assets/data/multimedia.content.json'
-});
+  baseURL: './assets/data/multimedia.content.json'
+})
 
-export default MultimediaClient;
+export default MultimediaClient

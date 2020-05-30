@@ -10,10 +10,6 @@
                 </v-ons-col>
             </v-ons-row>
         </v-ons-card>
-        <v-ons-fab modifier="material" background="rgba(0, 58, 82, 0.8)" position="bottom right" ripple @click.stop="goTop()">
-            <v-ons-ripple  modifier="material" background="rgba(0, 58, 82, 0.8)" color="rgb(0, 58, 82)"></v-ons-ripple>
-            <v-ons-icon icon="ion-chevron-up, material:md-arrow_upward" size="32px, material:24px" color="#ffffff"></v-ons-icon>
-        </v-ons-fab>
     </v-ons-page>
 </template>
 

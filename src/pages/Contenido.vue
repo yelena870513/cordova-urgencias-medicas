@@ -1,5 +1,5 @@
 <template>
-    <v-ons-page>
+    <v-ons-page :infinite-scroll="dispatchScroll">
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
         <v-ons-card>
             <v-ons-row>
@@ -11,16 +11,30 @@
                 </v-ons-col>
             </v-ons-row>
         </v-ons-card>
-        <v-ons-fab modifier="material" background="rgba(0, 58, 82, 0.8)" position="bottom right" ripple @click.stop="goTop()">
-            <v-ons-ripple  modifier="material" background="rgba(0, 58, 82, 0.8)" color="rgb(0, 58, 82)"></v-ons-ripple>
-            <v-ons-icon icon="ion-chevron-up, material:md-arrow_upward" size="32px, material:24px" color="#ffffff"></v-ons-icon>
-        </v-ons-fab>
+        <vue-easy-lightbox
+                :visible="visible"
+                :imgs="album"
+                :index="index"
+                @hide="handleHide"
+        >
+        <div toolbar></div>  
+        </vue-easy-lightbox>
     </v-ons-page>
 </template>
 
 <script>
+    import VueEasyLightbox from 'vue-easy-lightbox'
+    import _ from 'lodash';
     export default {
         name: "Contenido",
+        data() {
+          return {
+              album: [],
+              visible: false,
+              index: 0,
+              hasScrolled: false
+          }
+        },
         computed:{
            reader(){
                return this.$store.getters['multimedia/reader'];
@@ -28,13 +42,28 @@
         },
         mounted(){
             const  images = document.querySelectorAll('.contenido img');
+            const self = this;
             for (const image of images) {
                 let imageFilename = image.attributes.src.nodeValue.split('/').pop();
                 image.attributes.src.nodeValue = './assets/images/app/' + imageFilename;
                 image.style.width="100%";
                 image.style.display="block";
+                self.album.push({
+                    src: image.src,
+                    title: image.alt
+                });
                 this.$nextTick(()=>{
                     image.classList.add('content-image');
+                    image.addEventListener('click', () => {
+                        const index  = _.findIndex(self.album, (el) => {
+                            return el.src === image.src;
+                        })
+
+                        if (index !== -1) {
+                            self.showImg(index);
+                        }
+
+                    })
                 });
             }
             const tables = document.querySelectorAll('table');
@@ -62,13 +91,26 @@
                 }
                 
               };
+            },
+            showImg (index) {
+                this.index = index;
+                this.visible = true;
+            },
+            handleHide () {
+                this.visible = false;
+            },
+            dispatchScroll() {
+                this.hasScrolled = true;
             }
+        },
+        components: {
+            VueEasyLightbox
         }
     }
 </script>
 
 <style scoped>
-p > .content-image{
+p > .content-image {
     width: 100%;
     display: block;
 }
@@ -85,6 +127,9 @@ h4 {
   font-size: 22px;
   color: #2bba9e;
   font-weight: 700;
+}
 
+.vel-toolbar {
+  display: none;
 }
 </style>

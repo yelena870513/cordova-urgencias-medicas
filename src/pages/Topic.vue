@@ -48,12 +48,6 @@
                 });
             },
             ...mapActions(['multimedia/setReader'])
-        },
-        mounted() {
-            if (this.topics.length === 1) {
-                const currentTopic = this.topics[0];
-                this.push(currentTopic);
-            }
         }
     }
 </script>

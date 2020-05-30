@@ -7,7 +7,6 @@
         :animation="md ? 'overlay' : 'reveal'"
         :open.sync="isOpen"
       >
-        <menu-page></menu-page>
       </v-ons-splitter-side>
 
       <v-ons-splitter-content>
@@ -19,7 +18,6 @@
 
 <script>
 import AppTabbar from './AppTabbar.vue';
-import MenuPage from './pages/Menu.vue';
 
 export default {
   computed: {
@@ -32,7 +30,7 @@ export default {
       }
     }
   },
-  components: { AppTabbar, MenuPage }
+  components: { AppTabbar }
 };
 </script>
 

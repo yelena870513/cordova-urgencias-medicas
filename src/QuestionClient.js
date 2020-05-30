@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from 'axios'
+
 const QuestionClient = axios.create({
-    baseURL:'./assets/data/preguntas.json'
+  baseURL: './assets/data/preguntas.json'
 });
 
 export default QuestionClient;

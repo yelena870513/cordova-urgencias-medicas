@@ -97,3 +97,17 @@
   background-color: rgb(244, 67, 54);
   color: white;
 }
+
+.vel-toolbar {
+  display: none !important;
+}
+
+.btn__prev,
+.btn__next,
+.btn__close {
+  display: none;
+}
+.vel-img-title {
+  bottom: 12rem !important;
+  color: #fff !important;
+}
